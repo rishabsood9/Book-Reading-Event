@@ -1,0 +1,5 @@
+﻿.background-image {
+    background-size: cover;
+    background-image: linear-gradient( rgba(0, 0, 0, 0.3), rgba(255, 255, 255, 0.3) ),url();
+    background-attachment: fixed
+}

@@ -1,0 +1,21 @@
+﻿@using MVCAssignment.Models
+@using System.Collections.Generic
+@model IEnumerable<EventModel>
+@{
+    ViewBag.Title = "MyEvents";
+   
+}
+
+<h2>MyEvents</h2>
+<div class="container">
+    @{
+        <ul>
+            @foreach (var item in Model)
+                {
+                
+                    <li>@Html.ActionLink(@item.Title, "ViewEvent", "BookReadingEvent",new { eventId=@item.EventId},null)</li>
+                
+                }
+        </ul>
+    }
+</div>

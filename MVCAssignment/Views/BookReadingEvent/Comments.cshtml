@@ -1,0 +1,13 @@
+﻿@using MVCAssignment.Models
+@model IEnumerable<CommentModel>
+    @{
+        <div class="container">
+            @foreach(var item in Model)
+                {
+                    <div>
+                       <p> @item.CommentAdded    Posted On  @item.Date.Date</p>
+                    </div>
+                }
+        </div>
+
+    }

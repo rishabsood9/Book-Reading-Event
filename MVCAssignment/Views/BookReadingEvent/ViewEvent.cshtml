@@ -1,0 +1,137 @@
+﻿@using MVCAssignment.Models
+@model EventModel
+@{
+    ViewBag.Title = "ViewEvent";
+}
+
+
+<h2>ViewEvent</h2>
+<div>
+
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Location)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Location)
+
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Date)
+
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.StartTime)
+
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StartTime)
+
+        </dd>
+        @if (ViewBag.DisplayDuration)
+            {
+            <dt>
+                @Html.DisplayNameFor(model => model.Duration)
+
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Duration)
+
+            </dd>
+            }
+        @if (ViewBag.DisplayOtherDetails)
+            {
+            <dt>
+                @Html.DisplayNameFor(model => model.OtherDetails)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.OtherDetails)
+            </dd>
+            }
+        @if (ViewBag.DisplayCount)
+            {
+            <dt>
+                @Html.DisplayNameFor(model => model.Count)
+
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Count)
+
+            </dd>
+            }
+        @if (ViewBag.DisplayDescription)
+            {
+            <dt>
+                @Html.DisplayNameFor(model => model.Description)
+
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Description)
+
+            </dd>
+            }
+    </dl>
+    <div>
+        @if (ViewBag.DisplayEditLink && User.Identity.IsAuthenticated)
+            {
+            @Html.ActionLink("Edit", "EditEvent", "BookReadingEvent", new { eventId = Model.EventId }, null)
+            }
+        @if (User.IsInRole("Admin"))
+            {
+            @Html.ActionLink("Delete", "DeleteEvent", "BookReadingEvent", new { eventId = Model.EventId }, null)
+            }
+    </div>
+
+
+    @using (Html.BeginForm("AddCommentsPost", "BookReadingEvent", FormMethod.Post))
+        {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <h4>CommentModel</h4>
+            <hr />
+            @Html.HiddenFor(model => model.EventId);
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.CommentAdded, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.CommentAdded, new { htmlAttributes = new { @class = "form-control" } })
+
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Post" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+        }
+
+    <p>
+        @Html.Action("Comments", new { Model.EventId })
+    </p>
+    
+</div>
